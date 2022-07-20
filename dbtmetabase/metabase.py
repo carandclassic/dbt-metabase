@@ -36,6 +36,7 @@ class MetabaseClient:
         verify: Union[str, bool] = None,
         session_id: str = None,
         exclude_sources: bool = False,
+        headers: dict = {}
     ):
         """Constructor.
 
@@ -56,6 +57,7 @@ class MetabaseClient:
         self.verify = verify
         self.session_id = session_id or self.get_session_id(user, password)
         self.exclude_sources = exclude_sources
+        self.headers = headers
         self.collections: Iterable = []
         self.tables: Iterable = []
         self.table_map: MutableMapping = {}
@@ -85,6 +87,7 @@ class MetabaseClient:
             "/api/session",
             authenticated=False,
             json={"username": user, "password": password},
+            headers=self.headers
         )["id"]
 
     def sync_and_wait(

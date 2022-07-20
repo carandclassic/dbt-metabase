@@ -6,6 +6,7 @@ import os
 
 import click
 import yaml
+import json
 
 from .logger import logging as package_logger
 from .models.interface import MetabaseInterface, DbtInterface
@@ -556,6 +557,7 @@ def models(
     dbt_include_tags: bool = True,
     dbt_docs_url: Optional[str] = None,
     verbose: bool = False,
+    metabase_headers: str = "{}"
 ):
     """Exports model documentation and semantic types from dbt to Metabase.
 
@@ -616,6 +618,7 @@ def models(
         sync=metabase_sync,
         sync_timeout=metabase_sync_timeout,
         exclude_sources=metabase_exclude_sources,
+        headers=json.loads(metabase_headers)
     )
 
     # Load client
