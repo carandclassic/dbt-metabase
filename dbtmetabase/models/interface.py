@@ -27,6 +27,7 @@ class MetabaseInterface:
         sync: bool = True,
         sync_timeout: Optional[int] = None,
         exclude_sources: bool = False,
+        headers: dict = {}
     ):
         """Constructor.
 
@@ -49,6 +50,7 @@ class MetabaseInterface:
         self.user = user
         self.password = password
         self.session_id = session_id
+        self.headers = headers
         # Metabase additional connection opts
         self.use_http = use_http
         self.verify = verify
@@ -89,6 +91,7 @@ class MetabaseInterface:
             verify=self.verify,
             session_id=self.session_id,
             exclude_sources=self.exclude_sources,
+            headers=self.headers
         )
 
         # Sync and attempt schema alignment prior to execution; if timeout is not explicitly set, proceed regardless of success

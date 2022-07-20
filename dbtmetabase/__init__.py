@@ -22,6 +22,7 @@ ENV_VARS = [
     "DBT_MANIFEST_PATH",
     "MB_USER",
     "MB_PASS",
+    "MB_HEADERS"
     "MB_HOST",
     "MB_DATABASE",
     "MB_SESSION_TOKEN",
@@ -249,6 +250,16 @@ def shared_opts(func: Callable) -> Callable:
         help="Metabase password",
     )
     @click.option(
+        "--metabase_headers",
+        metavar="HEADERS",
+        envvar="MB_HEADERS",
+        show_envvar=True,
+        required=True,
+        cls=OptionAcceptableFromConfig,
+        type=click.STRING,
+        help="Metabase headers",
+    )
+    @click.option(
         "--metabase_session_id",
         metavar="TOKEN",
         envvar="MB_SESSION_ID",
@@ -460,6 +471,13 @@ def config(ctx, inspect: bool = False, resolve: bool = False, env: bool = False)
     config_file["metabase_password"] = click.prompt(
         "Metabase password [hidden]",
         default=config_file.get("metabase_password"),
+        hide_input=True,
+        show_default=False,
+        type=click.STRING,
+    )
+    config_file["metabase_headers"] = click.prompt(
+        "Metabase headers [hidden]",
+        default=config_file.get("metabase_headers"),
         hide_input=True,
         show_default=False,
         type=click.STRING,
