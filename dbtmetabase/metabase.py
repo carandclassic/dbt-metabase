@@ -868,8 +868,8 @@ class MetabaseClient:
         else:
             headers = kwargs["headers"].copy()
 
-        headers["CF-Access-Client-Id"] = os.environ('CF_CLIENT_ID')
-        headers["CF-Access-Client-Secret"] = os.environ('CF_CLIENT_SECRET')
+        headers["CF-Access-Client-Id"] = os.environ['CF_CLIENT_ID']
+        headers["CF-Access-Client-Secret"] = os.environ['CF_CLIENT_SECRET']
         headers['User-agent'] = 'Mozilla/5.0'
         
         if authenticated:
